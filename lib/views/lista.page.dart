@@ -140,15 +140,17 @@ class _ListaPageState extends State<ListaPage> {
                     canEdit
                         ? Row(
                             children: [
-                              IconButton(
-                                icon: Icon(Icons.comment),
-                                onPressed: () => showDialog(
-                                    context: context,
-                                    builder: (_) {
-                                      return AlertDialog(
-                                          title: Text(tarefa.descricao));
-                                    }),
-                              ),
+                              tarefa.descricao != null
+                                  ? IconButton(
+                                      icon: Icon(Icons.comment),
+                                      onPressed: () => showDialog(
+                                          context: context,
+                                          builder: (_) {
+                                            return AlertDialog(
+                                                title: Text(tarefa.descricao));
+                                          }),
+                                    )
+                                  : Container(),
                               IconButton(
                                 icon: Icon(Icons.edit),
                                 onPressed: () => editarTarefas(context, tarefa),

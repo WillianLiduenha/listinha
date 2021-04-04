@@ -8,12 +8,13 @@ class Tarefa {
   bool ativo;
   String descricao;
   // Contrutor:
-  Tarefa(
-      {this.id,
-      this.texto,
-      this.qtd,
-      this.valor,
-      this.finalizada = false,
-      this.ativo = true,
-      this.descricao = "Sem descrição."});
+  Tarefa({
+    this.id,
+    this.texto,
+    this.qtd,
+    this.valor,
+    this.finalizada = false,
+    this.ativo = true,
+    this.descricao,
+  });
 }
