@@ -69,7 +69,7 @@ class _ListaPageState extends State<ListaPage> {
   double total(List<Tarefa> tarefas) {
     double totalzin = 0;
     tarefas.forEach((element) {
-      totalzin += element.valor;
+      element.ativo ? totalzin += element.valor * element.qtd : totalzin;
     });
     return totalzin;
   }
