@@ -60,6 +60,16 @@ class NovaPage extends StatelessWidget {
                 validator: (value) =>
                     value.isEmpty ? "Campo obrigatório" : null,
               ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Valor do produto",
+                  border: OutlineInputBorder(),
+                ),
+                onSaved: (value) => _tarefa.valor = double.parse(value),
+                validator: (value) =>
+                    value.isEmpty ? "Campo obrigatório" : null,
+              ),
             ]),
           ),
         ),

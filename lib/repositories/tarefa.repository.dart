@@ -7,9 +7,20 @@ class TarefaRepository {
 
   TarefaRepository() {
     if (tarefas.isEmpty) {
-      tarefas.add(Tarefa(id: "1", texto: "Lavar o carro", qtd: 15, finalizada: false));
-      tarefas.add(Tarefa(id: "2", texto: "Comprar um", qtd: 16, finalizada: false));
-      tarefas.add(Tarefa(id: "3", texto: "Comprar dois", qtd: 10, finalizada: false));
+      tarefas.add(Tarefa(
+          id: "1",
+          texto: "Lavar o carro",
+          qtd: 15,
+          valor: 10,
+          finalizada: false));
+      tarefas.add(Tarefa(
+          id: "2", texto: "Comprar um", qtd: 16, valor: 90, finalizada: false));
+      tarefas.add(Tarefa(
+          id: "3",
+          texto: "Comprar dois",
+          qtd: 10,
+          valor: 100,
+          finalizada: false));
     }
   }
 
@@ -29,5 +40,7 @@ class TarefaRepository {
   void update(Tarefa newTarefa, Tarefa oldTarefa) {
     final tarefa = tarefas.singleWhere((t) => t.texto == oldTarefa.texto);
     tarefa.texto = newTarefa.texto;
+    tarefa.qtd = newTarefa.qtd;
+    tarefa.valor = newTarefa.valor;
   }
 }

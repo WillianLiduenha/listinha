@@ -64,6 +64,17 @@ class EditaPage extends StatelessWidget {
                 validator: (value) =>
                     value.isEmpty ? "Campo obrigatório" : null,
               ),
+              TextFormField(
+                initialValue: tarefa.valor.toString(),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Valor do Produto",
+                  border: OutlineInputBorder(),
+                ),
+                onSaved: (value) => _tarefa.valor = double.parse(value),
+                validator: (value) =>
+                    value.isEmpty ? "Campo obrigatório" : null,
+              ),
             ]),
           ),
         ),

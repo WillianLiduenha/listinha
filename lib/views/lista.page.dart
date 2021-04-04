@@ -66,6 +66,14 @@ class _ListaPageState extends State<ListaPage> {
     }
   }
 
+  double total(List<Tarefa> tarefas) {
+    double totalzin = 0;
+    tarefas.forEach((element) {
+      totalzin += element.valor;
+    });
+    return totalzin;
+  }
+
   bool canEdit = false;
 
   void ordenar(List<Tarefa> tarefa) {
@@ -89,7 +97,7 @@ class _ListaPageState extends State<ListaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lista de Tarefas"),
+        title: Text("Total do Carrinho: " + total(tarefas).toString()),
         centerTitle: true,
         actions: [
           IconButton(
@@ -157,14 +165,29 @@ class _ListaPageState extends State<ListaPage> {
                                 : TextDecoration.none,
                           ),
                         ),
-                        Text(
-                          "Quantidade: " + tarefas[indice].qtd.toString(),
-                          style: TextStyle(
-                            fontSize: 10,
-                            decoration: tarefas[indice].finalizada
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                          ),
+                        Column(
+                          children: [
+                            Text(
+                              "Quantidade: " + tarefas[indice].qtd.toString(),
+                              style: TextStyle(
+                                fontSize: 10,
+                                decoration: tarefas[indice].finalizada
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                              ),
+                            ),
+                            Text(
+                              "Preço: " +
+                                  tarefas[indice].valor.toString() +
+                                  " reais.",
+                              style: TextStyle(
+                                fontSize: 10,
+                                decoration: tarefas[indice].finalizada
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
