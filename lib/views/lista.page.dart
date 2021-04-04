@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:listinha_tarefas/models/tarefa.model.dart';
@@ -69,7 +71,9 @@ class _ListaPageState extends State<ListaPage> {
   double total(List<Tarefa> tarefas) {
     double totalzin = 0;
     tarefas.forEach((element) {
-      element.ativo ? totalzin += element.valor * element.qtd : totalzin;
+      element.ativo
+          ? totalzin += element.valor * element.qtd
+          : totalzin; // Linha desnecessária, poderia ser resolvido com um if apenas e não ternário
     });
     return totalzin;
   }
@@ -137,6 +141,15 @@ class _ListaPageState extends State<ListaPage> {
                         ? Row(
                             children: [
                               IconButton(
+                                icon: Icon(Icons.comment),
+                                onPressed: () => showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return AlertDialog(
+                                          title: Text(tarefa.descricao));
+                                    }),
+                              ),
+                              IconButton(
                                 icon: Icon(Icons.edit),
                                 onPressed: () => editarTarefas(context, tarefa),
                               ),
@@ -156,6 +169,7 @@ class _ListaPageState extends State<ListaPage> {
                           )
                         : Container(),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           tarefas[indice].texto,
@@ -166,6 +180,7 @@ class _ListaPageState extends State<ListaPage> {
                           ),
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               "Quantidade: " + tarefas[indice].qtd.toString(),
@@ -179,6 +194,9 @@ class _ListaPageState extends State<ListaPage> {
                             Text(
                               "Preço: " +
                                   tarefas[indice].valor.toString() +
+                                  " reais a unidade. Sendo assim, o total deste item é: " +
+                                  (tarefas[indice].valor * tarefas[indice].qtd)
+                                      .toString() +
                                   " reais.",
                               style: TextStyle(
                                 fontSize: 10,

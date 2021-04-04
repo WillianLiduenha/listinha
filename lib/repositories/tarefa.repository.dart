@@ -9,18 +9,16 @@ class TarefaRepository {
     if (tarefas.isEmpty) {
       tarefas.add(Tarefa(
           id: "1",
-          texto: "Lavar o carro",
+          texto: "Maçã",
           qtd: 15,
           valor: 10,
-          finalizada: false));
+          finalizada: false,
+          descricao:
+              "Pegue apenas as maçãs grandes! As pequenas não da nem pra 2 mordidas."));
       tarefas.add(Tarefa(
-          id: "2", texto: "Comprar um", qtd: 16, valor: 90, finalizada: false));
+          id: "2", texto: "Pêra", qtd: 16, valor: 90, finalizada: false));
       tarefas.add(Tarefa(
-          id: "3",
-          texto: "Comprar dois",
-          qtd: 10,
-          valor: 100,
-          finalizada: false));
+          id: "3", texto: "Pepino", qtd: 10, valor: 100, finalizada: false));
     }
   }
 

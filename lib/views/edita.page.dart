@@ -30,7 +30,7 @@ class EditaPage extends StatelessWidget {
             child: Text(
               "Salvar",
               style: TextStyle(
-                color: Colors.green,
+                color: Colors.white,
               ),
             ),
             onPressed: () => onSave(context, tarefa),
@@ -72,6 +72,18 @@ class EditaPage extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
                 onSaved: (value) => _tarefa.valor = double.parse(value),
+                validator: (value) =>
+                    value.isEmpty ? "Campo obrigatório" : null,
+              ),
+              TextFormField(
+                maxLength: 100,
+                initialValue: tarefa.descricao,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Descrição ou Nota",
+                  border: OutlineInputBorder(),
+                ),
+                onSaved: (value) => _tarefa.descricao = value,
                 validator: (value) =>
                     value.isEmpty ? "Campo obrigatório" : null,
               ),

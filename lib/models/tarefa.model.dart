@@ -6,6 +6,7 @@ class Tarefa {
   double valor;
   bool finalizada;
   bool ativo;
+  String descricao;
   // Contrutor:
   Tarefa(
       {this.id,
@@ -13,5 +14,6 @@ class Tarefa {
       this.qtd,
       this.valor,
       this.finalizada = false,
-      this.ativo = true});
+      this.ativo = true,
+      this.descricao = "Sem descrição."});
 }
