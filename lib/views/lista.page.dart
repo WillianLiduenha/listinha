@@ -135,9 +135,13 @@ class _ListaPageState extends State<ListaPage> {
                               IconButton(
                                 icon: Icon(Icons.adjust_rounded),
                                 onPressed: () {
-                                  setState(() => tarefas[indice].ativo =
-                                      !tarefas[indice].ativo);
-                                  ordenar(tarefas);
+                                  return !tarefas[indice].finalizada
+                                      ? setState(() {
+                                          tarefas[indice].ativo =
+                                              !tarefas[indice].ativo;
+                                          ordenar(tarefas);
+                                        })
+                                      : Container();
                                 },
                               ),
                             ],
@@ -168,8 +172,12 @@ class _ListaPageState extends State<ListaPage> {
                 ),
                 value: tarefas[indice].finalizada,
                 onChanged: (value) {
-                  setState(() => tarefas[indice].finalizada = value);
-                  ordenar(tarefas);
+                  return tarefas[indice].ativo
+                      ? setState(() {
+                          tarefas[indice].finalizada = value;
+                          ordenar(tarefas);
+                        })
+                      : Container();
                 },
               ),
             ),
