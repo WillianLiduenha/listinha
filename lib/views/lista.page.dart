@@ -109,124 +109,142 @@ class _ListaPageState extends State<ListaPage> {
               icon: Icon(Icons.edit)),
         ],
       ),
-      body: ListView.builder(
-        itemCount: tarefas.length,
-        itemBuilder: (_, indice) {
-          var tarefa = tarefas[indice];
-          return Card(
-            color: tarefa.ativo ? Colors.white : Colors.red,
-            child: Dismissible(
-              key: Key(tarefas[indice].texto),
-              background: Container(
-                  color: Colors.red, child: Center(child: Text("Apagar"))),
-              onDismissed: (direction) {
-                if (direction == DismissDirection.startToEnd) {
-                  repository.delete(tarefa.texto);
-                  // setState(() => this.tarefas = repository.read());    //pior caso
-                  ordenar(tarefas);
-                  setState(() => this.tarefas.remove(tarefa));
-                } else if (direction == DismissDirection.endToStart) {
-                  //Invoca a tela de atualizar
-                }
-              },
-              confirmDismiss: (direction) {
-                if (direction == DismissDirection.startToEnd) {
-                  return confirmarExclusao(context);
-                }
-              },
-              child: CheckboxListTile(
-                title: Row(
-                  children: [
-                    canEdit
-                        ? Row(
+      body: Column(
+        children: [
+          Flexible(
+            flex: 9,
+            child: ListView.builder(
+              itemCount: tarefas.length,
+              itemBuilder: (_, indice) {
+                var tarefa = tarefas[indice];
+                return Card(
+                  color: tarefa.ativo ? Colors.white : Colors.red,
+                  child: Dismissible(
+                    key: Key(tarefas[indice].texto),
+                    background: Container(
+                        color: Colors.red,
+                        child: Center(child: Text("Apagar"))),
+                    onDismissed: (direction) {
+                      if (direction == DismissDirection.startToEnd) {
+                        repository.delete(tarefa.texto);
+                        // setState(() => this.tarefas = repository.read());    //pior caso
+                        ordenar(tarefas);
+                        setState(() => this.tarefas.remove(tarefa));
+                      } else if (direction == DismissDirection.endToStart) {
+                        //Invoca a tela de atualizar
+                      }
+                    },
+                    confirmDismiss: (direction) {
+                      if (direction == DismissDirection.startToEnd) {
+                        return confirmarExclusao(context);
+                      }
+                    },
+                    child: CheckboxListTile(
+                      title: Row(
+                        children: [
+                          canEdit
+                              ? Row(
+                                  children: [
+                                    tarefa.descricao != null
+                                        ? IconButton(
+                                            icon: Icon(Icons.comment),
+                                            onPressed: () => showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return AlertDialog(
+                                                      title: Text(
+                                                          tarefa.descricao));
+                                                }),
+                                          )
+                                        : Container(),
+                                    IconButton(
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () =>
+                                          editarTarefas(context, tarefa),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.adjust_rounded),
+                                      onPressed: () {
+                                        return !tarefas[indice].finalizada
+                                            ? setState(() {
+                                                tarefas[indice].ativo =
+                                                    !tarefas[indice].ativo;
+                                                ordenar(tarefas);
+                                              })
+                                            : Container();
+                                      },
+                                    ),
+                                  ],
+                                )
+                              : Container(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              tarefa.descricao != null
-                                  ? IconButton(
-                                      icon: Icon(Icons.comment),
-                                      onPressed: () => showDialog(
-                                          context: context,
-                                          builder: (_) {
-                                            return AlertDialog(
-                                                title: Text(tarefa.descricao));
-                                          }),
-                                    )
-                                  : Container(),
-                              IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () => editarTarefas(context, tarefa),
+                              Text(
+                                tarefas[indice].texto,
+                                style: TextStyle(
+                                  decoration: tarefas[indice].finalizada
+                                      ? TextDecoration.lineThrough
+                                      : TextDecoration.none,
+                                ),
                               ),
-                              IconButton(
-                                icon: Icon(Icons.adjust_rounded),
-                                onPressed: () {
-                                  return !tarefas[indice].finalizada
-                                      ? setState(() {
-                                          tarefas[indice].ativo =
-                                              !tarefas[indice].ativo;
-                                          ordenar(tarefas);
-                                        })
-                                      : Container();
-                                },
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Quantidade: " +
+                                        tarefas[indice].qtd.toString(),
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      decoration: tarefas[indice].finalizada
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Preço: " +
+                                        tarefas[indice].valor.toString() +
+                                        " reais a unidade. Sendo assim, o total deste item é: " +
+                                        (tarefas[indice].valor *
+                                                tarefas[indice].qtd)
+                                            .toString() +
+                                        " reais.",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      decoration: tarefas[indice].finalizada
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
-                          )
-                        : Container(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tarefas[indice].texto,
-                          style: TextStyle(
-                            decoration: tarefas[indice].finalizada
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Quantidade: " + tarefas[indice].qtd.toString(),
-                              style: TextStyle(
-                                fontSize: 10,
-                                decoration: tarefas[indice].finalizada
-                                    ? TextDecoration.lineThrough
-                                    : TextDecoration.none,
-                              ),
-                            ),
-                            Text(
-                              "Preço: " +
-                                  tarefas[indice].valor.toString() +
-                                  " reais a unidade. Sendo assim, o total deste item é: " +
-                                  (tarefas[indice].valor * tarefas[indice].qtd)
-                                      .toString() +
-                                  " reais.",
-                              style: TextStyle(
-                                fontSize: 10,
-                                decoration: tarefas[indice].finalizada
-                                    ? TextDecoration.lineThrough
-                                    : TextDecoration.none,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
+                      value: tarefas[indice].finalizada,
+                      onChanged: (value) {
+                        return tarefas[indice].ativo
+                            ? setState(() {
+                                tarefas[indice].finalizada = value;
+                                ordenar(tarefas);
+                              })
+                            : Container();
+                      },
                     ),
-                  ],
-                ),
-                value: tarefas[indice].finalizada,
-                onChanged: (value) {
-                  return tarefas[indice].ativo
-                      ? setState(() {
-                          tarefas[indice].finalizada = value;
-                          ordenar(tarefas);
-                        })
-                      : Container();
-                },
-              ),
+                  ),
+                );
+              },
+            ), // criar a lista com os dados do read();
+          ),
+          Flexible(
+            flex: 1,
+            child: Image.asset(
+              "assets/images/cart.png",
             ),
-          );
-        },
-      ), // criar a lista com os dados do read();
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => adicionarTarefa(context),
