@@ -40,5 +40,6 @@ class TarefaRepository {
     tarefa.texto = newTarefa.texto;
     tarefa.qtd = newTarefa.qtd;
     tarefa.valor = newTarefa.valor;
+    tarefa.descricao = newTarefa.descricao;
   }
 }
