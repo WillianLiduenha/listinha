@@ -64,7 +64,7 @@ class NovaPage extends StatelessWidget {
               TextFormField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: "Valor do produto",
+                  labelText: "Preço unitário",
                   border: OutlineInputBorder(),
                 ),
                 onSaved: (value) => _tarefa.valor = double.parse(value),
