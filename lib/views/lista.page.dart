@@ -122,8 +122,11 @@ class _ListaPageState extends State<ListaPage> {
                   child: Dismissible(
                     key: Key(tarefas[indice].texto),
                     background: Container(
-                        color: Colors.red,
-                        child: Center(child: Text("Apagar"))),
+                      color: Colors.red,
+                      child: Center(
+                        child: Text("Apagar"),
+                      ),
+                    ),
                     onDismissed: (direction) {
                       if (direction == DismissDirection.startToEnd) {
                         repository.delete(tarefa.texto);

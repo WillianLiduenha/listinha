@@ -40,49 +40,51 @@ class NovaPage extends StatelessWidget {
         child: Form(
           key: _formKey,
           child: Card(
-            child: Column(children: [
-              TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(
-                  labelText: "Nome do produto",
-                  border: OutlineInputBorder(),
-                ),
-                onSaved: (value) => _tarefa.texto = value,
-                validator: (value) =>
-                    value.isEmpty ? "Campo obrigatório" : null,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Quantidade do item",
-                  border: OutlineInputBorder(),
-                ),
-                onSaved: (value) => _tarefa.qtd = int.parse(value),
-                validator: (value) =>
-                    value.isEmpty ? "Campo obrigatório" : null,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Preço unitário",
-                  border: OutlineInputBorder(),
-                ),
-                onSaved: (value) => _tarefa.valor = double.parse(value),
-                validator: (value) =>
-                    value.isEmpty ? "Campo obrigatório" : null,
-              ),
-              TextFormField(
-                maxLength: 100,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Descrição ou Nota",
-                  border: OutlineInputBorder(),
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(20),
-                ),
-                onSaved: (value) => _tarefa.descricao = value,
-              ),
-            ]),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextFormField(
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      labelText: "Nome do produto",
+                      border: OutlineInputBorder(),
+                    ),
+                    onSaved: (value) => _tarefa.texto = value,
+                    validator: (value) =>
+                        value.isEmpty ? "Campo obrigatório" : null,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Quantidade do item",
+                      border: OutlineInputBorder(),
+                    ),
+                    onSaved: (value) => _tarefa.qtd = int.parse(value),
+                    validator: (value) =>
+                        value.isEmpty ? "Campo obrigatório" : null,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Preço unitário",
+                      border: OutlineInputBorder(),
+                    ),
+                    onSaved: (value) => _tarefa.valor = double.parse(value),
+                    validator: (value) =>
+                        value.isEmpty ? "Campo obrigatório" : null,
+                  ),
+                  TextFormField(
+                    maxLength: 100,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Descrição ou Nota",
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                      contentPadding: EdgeInsets.all(20),
+                    ),
+                    onSaved: (value) => _tarefa.descricao = value,
+                  ),
+                ]),
           ),
         ),
       ),
